@@ -120,27 +120,27 @@ class ControllerFeedHotLine extends Controller {
 
                     // Prepare Price
                     if ('USD' == $this->currency->getCode()) {
-                        $special = $this->currency->format($product['special'], 'USD', 'UAH');
-                        $price = $this->currency->format($product['price'], 'USD', 'UAH');
+                        $special = $this->currency->convert($product['special'], 'USD', 'UAH');
+                        $price = $this->currency->convert($product['price'], 'USD', 'UAH');
                         $special_usd = false;
                         $price_usd = false;
                     } else {
                         $special = $product['special'];
                         $price = $product['price'];
-                        $special_usd = $this->currency->format($product['special'], 'UAH', 'USD');
-                        $price_usd = $this->currency->format($product['price'], 'UAH', 'USD');
+                        $special_usd = $this->currency->convert($product['special'], 'UAH', 'USD');
+                        $price_usd = $this->currency->convert($product['price'], 'UAH', 'USD');
                     }
 
-                    if ((float)$product['special'] && $product['special'] < $product['price']) {
-                        $output .= '<priceRUAH>' .  $this->currency->format($this->tax->calculate($special, $product['tax_class_id']), $this->currency->getCode(), false, false) . '</priceRUAH>';
-                        $output .= '<oldprice>' .  $this->currency->format($this->tax->calculate($price, $product['tax_class_id']), $this->currency->getCode(), false, false) . '</oldprice>';
+                    if ($special && $special < $price) {
+                        $output .= '<priceRUAH>' . number_format($special, 2) . '</priceRUAH>';
+                        $output .= '<oldprice>' . number_format($price, 2) . '</oldprice>';
                         if ($special_usd) {
-                            $output .= '<priceRUSD>' .  $this->currency->format($this->tax->calculate($special_usd, $product['tax_class_id']), $this->currency->getCode(), false, false) . '</priceRUSD>';
+                            $output .= '<priceRUSD>' . number_format($special_usd, 2) . '</priceRUSD>';
                         }
                     } else {
-                        $output .= '<priceRUAH>' . $this->currency->format($this->tax->calculate($price, $product['tax_class_id']), $this->currency->getCode(), false, false) . '</priceRUAH>';
+                        $output .= '<priceRUAH>' . number_format($price, 2) . '</priceRUAH>';
                         if ($price_usd) {
-                            $output .= '<priceRUSD>' .  $this->currency->format($this->tax->calculate($price_usd, $product['tax_class_id']), $this->currency->getCode(), false, false) . '</priceRUSD>';
+                            $output .= '<priceRUSD>' .  number_format($price_usd, 2) . '</priceRUSD>';
                         }
                     }
 
