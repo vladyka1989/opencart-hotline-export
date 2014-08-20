@@ -132,15 +132,15 @@ class ControllerFeedHotLine extends Controller {
                     }
 
                     if ($special && $special < $price) {
-                        $output .= '<priceRUAH>' . number_format($special, 2) . '</priceRUAH>';
-                        $output .= '<oldprice>' . number_format($price, 2) . '</oldprice>';
+                        $output .= '<priceRUAH>' . number_format($special, 2, '.', '') . '</priceRUAH>';
+                        $output .= '<oldprice>' . number_format($price, 2, '.', '') . '</oldprice>';
                         if ($special_usd) {
-                            $output .= '<priceRUSD>' . number_format($special_usd, 2) . '</priceRUSD>';
+                            $output .= '<priceRUSD>' . number_format($special_usd, 2, '.', '') . '</priceRUSD>';
                         }
                     } else {
-                        $output .= '<priceRUAH>' . number_format($price, 2) . '</priceRUAH>';
+                        $output .= '<priceRUAH>' . number_format($price, 2, '.', '') . '</priceRUAH>';
                         if ($price_usd) {
-                            $output .= '<priceRUSD>' .  number_format($price_usd, 2) . '</priceRUSD>';
+                            $output .= '<priceRUSD>' .  number_format($price_usd, 2, '.', '') . '</priceRUSD>';
                         }
                     }
 
