@@ -72,7 +72,7 @@ class ControllerFeedHotLine extends Controller {
             }
 
             // Products
-            $products = $this->model_catalog_product->getProducts();
+            $products = $this->model_catalog_product->getProducts(array('start' => 0, 'limit' => 1000000));
 
             if ($products) {
 
