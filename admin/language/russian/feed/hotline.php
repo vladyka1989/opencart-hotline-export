@@ -30,17 +30,20 @@
  */
 
 // Heading
-$_['heading_title']    = 'Hotline';
+$_['heading_title']         = 'Hotline';
+$_['edit_heading_title']    = 'Редактировать Hotline';
 
 // Text
 $_['text_feed']        = 'Лента товаров';
 $_['text_success']     = 'Настройки ленты Hotline успешно сохранены!';
+$_['note_category']     = '* Внимание: не выбирайте категории для того чтобы выгрузить все.';
 
 // Entry
 $_['entry_status']     = 'Статус:';
 $_['entry_data_feed']  = 'Адрес ленты:';
 $_['entry_hotline_firm_id'] = 'ID учетной записи:';
 $_['entry_hotline_guarantee'] = 'Базовый гарантийный срок на товары:';
+$_['entry_hotline_category'] = 'Включить категории:';
 
 // Error
 $_['error_permission'] = 'Внимание: вы не имеете полномочий для редактирования настроек ленты Hotline!';

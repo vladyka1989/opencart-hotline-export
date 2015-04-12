@@ -30,17 +30,20 @@
  */
 
 // Heading
-$_['heading_title']    = 'Hotline';
+$_['heading_title']         = 'Hotline';
+$_['edit_heading_title']    = 'Edit Hotline';
 
 // Text
-$_['text_feed']        = 'Product Feeds';
+$_['text_feed']        = 'Feeds';
 $_['text_success']     = 'Success: You have modified Hotline feed!';
+$_['note_category']     = '* Note: deselect all categories to export everything';
 
 // Entry
 $_['entry_status']     = 'Status:';
 $_['entry_data_feed']  = 'Data Feed Url:';
 $_['entry_hotline_firm_id'] = 'Account ID:';
 $_['entry_hotline_guarantee'] = 'Basic Products Guarantee:';
+$_['entry_hotline_category'] = 'Categories to include:';
 
 // Error
 $_['error_permission'] = 'Warning: You do not have permission to modify Hotline feed!';

@@ -31,16 +31,19 @@
 
 // Heading
 $_['heading_title']    = 'Hotline';
+$_['edit_heading_title']    = 'Редагувати Hotline';
 
 // Text
 $_['text_feed']        = 'Експорт товарів';
 $_['text_success']     = 'Налаштування експорту Hotline успішно збережено!';
+$_['note_category']     = '* Увага: не вибирайте категорії для того щоб вигрузити все.';
 
 // Entry
 $_['entry_status']     = 'Статус:';
 $_['entry_data_feed']  = 'Адреса експорту:';
 $_['entry_hotline_firm_id'] = 'ID облікового запису Hotline:';
 $_['entry_hotline_guarantee'] = 'Базовий гарантійний термін на товари:';
+$_['entry_hotline_category'] = 'Включити категорії:';
 
 // Error
 $_['error_permission'] = 'Увага: ви не маєте повноважень для редагування налаштувань експорту Hotline!';
