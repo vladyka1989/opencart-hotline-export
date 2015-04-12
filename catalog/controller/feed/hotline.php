@@ -54,19 +54,23 @@ class ControllerFeedHotLine extends Controller {
                 $output .= '<rate>' . number_format(1/$this->currency->getValue(), 2) . '</rate>';
             }
 
+            $all_categories = !$this->config->get('hotline_categories') || empty($this->config->get('hotline_categories'));
+
             // Categories
             $categories = $this->model_feed_hotline->getCategories();
 
             if ($categories) {
                 $output .= '<categories>';
                 foreach ($categories as $category) {
-                    $output .= '<category>';
-                    $output .= '<id>' . $category['category_id'] . '</id>';
-                    if ($category['parent_id']) {
-                        $output .= '<parentId>' . $category['parent_id'] . '</parentId>';
+                    if ($all_categories || in_array($category['category_id'], $this->config->get('hotline_categories'))) {
+                        $output .= '<category>';
+                        $output .= '<id>' . $category['category_id'] . '</id>';
+                        if ($category['parent_id']) {
+                            $output .= '<parentId>' . $category['parent_id'] . '</parentId>';
+                        }
+                        $output .= '<name>' . $category['name'] . '</name>';
+                        $output .= '</category>';
                     }
-                    $output .= '<name>' . $category['name'] . '</name>';
-                    $output .= '</category>';
                 }
                 $output .= '</categories>';
             }
@@ -74,14 +78,9 @@ class ControllerFeedHotLine extends Controller {
             // Products
             $products = $this->model_catalog_product->getProducts(array('start' => 0, 'limit' => 1000000));
 
-            if ($products) {
-
+            if ($products) {                
                 $output .= '<items>';
                 foreach ($products as $product) {
-                    $output .= '<item>';
-                    $output .= '<id>' . $product['product_id'] . '</id>';
-
-
                     // Get Product Category
                     $category_id = false;
                     $product_categories = $this->model_catalog_product->getCategories($product['product_id']);
@@ -95,27 +94,33 @@ class ControllerFeedHotLine extends Controller {
                         }
                     }
 
+                    if (!$all_categories && $category_id && !in_array($category_id, $this->config->get('hotline_categories'))) {
+                        continue;
+                    }
+
+                    $output .= '<item>';
+                    $output .= '<id>' . $product['product_id'] . '</id>';
+
                     if ($category_id) {
                         $output .= '<categoryId>' . $category_id . '</categoryId>';
                     }
 
-
-                    $output .= '<code>' . $product['model'] . '</code>';
+                    $output .= '<code>' . $this->purgeText($product['model']) . '</code>';
 
                     if ($product['manufacturer']) {
                         $output .= '<vendor>' . $product['manufacturer'] . '</vendor>';
                     }
 
-                    $output .= '<name>' . $product['name'] . '</name>';
+                    $output .= '<name>' . $this->purgeText($product['name']) . '</name>';
 
                     if ($product['description']) {
-                        $output .= '<description>' . trim(str_replace(array('&lt;p&gt;', '&lt;/p&gt;'), '', strip_tags($product['description']))) . '</description>';
+                        $output .= '<description>' . $this->purgeText(trim(str_replace(array('&lt;p&gt;', '&lt;/p&gt;'), '', strip_tags(html_entity_decode($product['description']))))) . '</description>';
                     }
 
-                    $output .= '<url>' . $this->url->link('product/product', 'product_id=' . (int) $product['product_id']) . '</url>';
+                    $output .= '<url>' . $this->purgeText($this->url->link('product/product', 'product_id=' . (int) $product['product_id'])) . '</url>';
 
                     if ($product['image']) {
-                        $output .= '<image>' . $this->model_tool_image->resize($product['image'], 600, 600) . '</image>';
+                        $output .= '<image>' . $this->config->get('config_url') . 'image/' . $this->purgeText($product['image']) . '</image>';
                     }
 
                     // Prepare Price
@@ -139,9 +144,9 @@ class ControllerFeedHotLine extends Controller {
                         }
                     } else {
                         $output .= '<priceRUAH>' . number_format($price, 2, '.', '') . '</priceRUAH>';
-                        if ($price_usd) {
-                            $output .= '<priceRUSD>' .  number_format($price_usd, 2, '.', '') . '</priceRUSD>';
-                        }
+                        //if ($price_usd) {
+                        //   $output .= '<priceRUSD>' .  number_format($price_usd, 2, '.', '') . '</priceRUSD>';
+                        //}
                     }
 
                     if ($product['quantity']) {
@@ -164,5 +169,11 @@ class ControllerFeedHotLine extends Controller {
             $this->response->addHeader('Content-Type: application/xml');
             $this->response->setOutput($output);
         }
+    }
+
+    private function purgeText($text) {
+        $text = preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $text); 
+        $text = str_replace('&nbsp;', ' ', $text); 
+        return $text;
     }
 }
