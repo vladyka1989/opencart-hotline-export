@@ -54,15 +54,13 @@ class ControllerFeedHotLine extends Controller {
                 $output .= '<rate>' . number_format(1/$this->currency->getValue(), 2) . '</rate>';
             }
 
-            $all_categories = !$this->config->get('hotline_categories') || empty($this->config->get('hotline_categories'));
-
             // Categories
             $categories = $this->model_feed_hotline->getCategories();
 
             if ($categories) {
                 $output .= '<categories>';
                 foreach ($categories as $category) {
-                    if ($all_categories || in_array($category['category_id'], $this->config->get('hotline_categories'))) {
+                    if ($this->config->get('hotline_categories') && in_array($category['category_id'], $this->config->get('hotline_categories'))) {
                         $output .= '<category>';
                         $output .= '<id>' . $category['category_id'] . '</id>';
                         if ($category['parent_id']) {
@@ -94,7 +92,7 @@ class ControllerFeedHotLine extends Controller {
                         }
                     }
 
-                    if (!$all_categories && $category_id && !in_array($category_id, $this->config->get('hotline_categories'))) {
+                    if (!$this->config->get('hotline_categories') && $category_id && !in_array($category_id, $this->config->get('hotline_categories'))) {
                         continue;
                     }
 
