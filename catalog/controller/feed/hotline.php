@@ -115,7 +115,7 @@ class ControllerFeedHotLine extends Controller {
                     $output .= '<url>' . $this->url->link('product/product', 'product_id=' . (int) $product['product_id']) . '</url>';
 
                     if ($product['image']) {
-                        $output .= '<image>' . $this->model_tool_image->resize($product['image'], 600, 600) . '</image>';
+                        $output .= '<image>' . htmlspecialchars( $this->model_tool_image->resize($product['image'], 600, 600) ) . '</image>';
                     }
 
                     // Prepare Price
