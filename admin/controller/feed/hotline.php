@@ -58,6 +58,7 @@ class ControllerFeedHotLine extends Controller {
         $this->data['entry_data_feed'] = $this->language->get('entry_data_feed');
         $this->data['entry_hotline_firm_id'] = $this->language->get('entry_hotline_firm_id');
         $this->data['entry_hotline_guarantee'] = $this->language->get('entry_hotline_guarantee');
+        $this->data['entry_add_attributes'] = $this->language->get('entry_add_attributes');
 
         $this->data['button_save'] = $this->language->get('button_save');
         $this->data['button_cancel'] = $this->language->get('button_cancel');
@@ -116,6 +117,18 @@ class ControllerFeedHotLine extends Controller {
             $this->data['hotline_status'] = $this->request->post['hotline_status'];
         } else {
             $this->data['hotline_status'] = $this->config->get('hotline_status');
+        }
+
+        if (isset($this->request->post['hotline_status'])) {
+            $this->data['hotline_status'] = $this->request->post['hotline_status'];
+        } else {
+            $this->data['hotline_status'] = $this->config->get('hotline_status');
+        }
+
+        if (isset($this->request->post['hotline_add_attributes'])) {
+            $this->data['hotline_add_attributes'] = $this->request->post['hotline_add_attributes'];
+        } else {
+            $this->data['hotline_add_attributes'] = $this->config->get('hotline_add_attributes');
         }
 
         $this->data['data_feed'] = HTTP_CATALOG . 'index.php?route=feed/hotline';

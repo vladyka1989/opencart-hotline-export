@@ -154,6 +154,15 @@ class ControllerFeedHotLine extends Controller {
                         $output .= '<guarantee>' . $this->config->get('config_hotline_guarantee') . '</guarantee>';
                     }
 
+                    if ($this->config->get('hotline_add_attributes') == 1) {
+                        $attributes_group = $this->model_catalog_product->getProductAttributes($product['product_id']);
+                        foreach ($attributes_group as $attributes) {
+                            foreach ($attributes["attribute"] as $attribute) {
+                                $output .= '<param name="' . $attribute['name'] . '">' . $attribute['text'] . '</param>';
+                            }
+                        }
+                    }
+
                     $output .= '</item>';
                 }
                 $output .= '</items>';

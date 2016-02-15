@@ -41,6 +41,7 @@ $_['entry_status']     = 'Status:';
 $_['entry_data_feed']  = 'Data Feed Url:';
 $_['entry_hotline_firm_id'] = 'Account ID:';
 $_['entry_hotline_guarantee'] = 'Basic Products Guarantee:';
+$_['entry_add_attributes'] = 'Include product attributes:';
 
 // Error
 $_['error_permission'] = 'Warning: You do not have permission to modify Hotline feed!';

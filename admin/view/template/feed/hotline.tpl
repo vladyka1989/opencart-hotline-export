@@ -72,6 +72,14 @@
             <td><?php echo $entry_data_feed; ?></td>
             <td><textarea cols="40" rows="5"><?php echo $data_feed; ?></textarea></td>
           </tr>
+          <tr>
+            <td><?php echo $entry_add_attributes; ?></td>
+            <td><select name="hotline_add_attributes">
+                <option value="0" <?php if ($hotline_add_attributes == 0) echo ' selected'; ?> ><?php echo $text_disabled; ?></option>
+                <option value="1" <?php if ($hotline_add_attributes == 1) echo ' selected'; ?> ><?php echo $text_enabled; ?></option>
+              </select>
+            </td>
+          </tr>
         </table>
       </form>
     </div>

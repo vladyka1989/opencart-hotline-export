@@ -41,6 +41,7 @@ $_['entry_status']     = 'Статус:';
 $_['entry_data_feed']  = 'Адреса експорту:';
 $_['entry_hotline_firm_id'] = 'ID облікового запису Hotline:';
 $_['entry_hotline_guarantee'] = 'Базовий гарантійний термін на товари:';
+$_['entry_add_attributes'] = 'Додати атрибути товарів:';
 
 // Error
 $_['error_permission'] = 'Увага: ви не маєте повноважень для редагування налаштувань експорту Hotline!';
