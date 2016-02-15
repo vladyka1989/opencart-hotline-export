@@ -42,6 +42,7 @@ $_['entry_data_feed']  = 'Адрес ленты:';
 $_['entry_hotline_firm_id'] = 'ID учетной записи:';
 $_['entry_hotline_guarantee'] = 'Базовый гарантийный срок на товары:';
 $_['entry_add_attributes'] = 'Добавить атрибуты товаров:';
+$_['entry_add_outofstock'] = 'Добавить товары не в наличии:';
 
 // Error
 $_['error_permission'] = 'Внимание: вы не имеете полномочий для редактирования настроек ленты Hotline!';

@@ -78,6 +78,10 @@ class ControllerFeedHotLine extends Controller {
 
                 $output .= '<items>';
                 foreach ($products as $product) {
+                    if ( $this->config->get('hotline_add_outofstock') == 0 ) {
+                        if ($product['quantity'] < 1) continue;
+                    }
+
                     $output .= '<item>';
                     $output .= '<id>' . $product['product_id'] . '</id>';
 
