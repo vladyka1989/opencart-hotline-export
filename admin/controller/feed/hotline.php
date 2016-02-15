@@ -112,6 +112,12 @@ class ControllerFeedHotLine extends Controller {
             $this->data['config_hotline_guarantee'] = $this->config->get('config_hotline_guarantee');
         }
 
+        if (isset($this->request->post['hotline_status'])) {
+            $this->data['hotline_status'] = $this->request->post['hotline_status'];
+        } else {
+            $this->data['hotline_status'] = $this->config->get('hotline_status');
+        }
+
         $this->data['data_feed'] = HTTP_CATALOG . 'index.php?route=feed/hotline';
 
         $this->template = 'feed/hotline.tpl';
