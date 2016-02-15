@@ -60,6 +60,7 @@ class ControllerFeedHotLine extends Controller {
         $this->data['entry_hotline_guarantee'] = $this->language->get('entry_hotline_guarantee');
         $this->data['entry_add_attributes'] = $this->language->get('entry_add_attributes');
         $this->data['entry_add_outofstock'] = $this->language->get('entry_add_outofstock');
+        $this->data['entry_add_usd'] = $this->language->get('entry_add_usd');
 
         $this->data['button_save'] = $this->language->get('button_save');
         $this->data['button_cancel'] = $this->language->get('button_cancel');
@@ -136,6 +137,12 @@ class ControllerFeedHotLine extends Controller {
             $this->data['hotline_add_outofstock'] = $this->request->post['hotline_add_outofstock'];
         } else {
             $this->data['hotline_add_outofstock'] = $this->config->get('hotline_add_outofstock');
+        }
+
+        if (isset($this->request->post['hotline_add_usd'])) {
+            $this->data['hotline_add_usd'] = $this->request->post['hotline_add_usd'];
+        } else {
+            $this->data['hotline_add_usd'] = $this->config->get('hotline_add_usd');
         }
 
         $this->data['data_feed'] = HTTP_CATALOG . 'index.php?route=feed/hotline';

@@ -88,6 +88,14 @@
               </select>
             </td>
           </tr>
+          <tr>
+            <td><?php echo $entry_add_usd; ?></td>
+            <td><select name="hotline_add_usd">
+                <option value="0" <?php if ($hotline_add_usd == 0) echo ' selected'; ?> ><?php echo $text_disabled; ?></option>
+                <option value="1" <?php if ($hotline_add_usd == 1) echo ' selected'; ?> ><?php echo $text_enabled; ?></option>
+              </select>
+            </td>
+          </tr>
         </table>
       </form>
     </div>

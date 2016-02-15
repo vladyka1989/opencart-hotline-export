@@ -41,7 +41,7 @@ class ControllerFeedHotLine extends Controller {
 
         $this->language->load('feed/hotline');
 
-        if ($this->config->get('hotline_status') && in_array($this->currency->getCode(), array('USD', 'UAH'))) {
+        if ($this->config->get('hotline_status') && in_array($this->currency->getCode(), array('UAH'))) {
 
             $output  = '<?xml version="1.0" encoding="UTF-8" ?>';
             $output .= '<price>';
@@ -131,8 +131,13 @@ class ControllerFeedHotLine extends Controller {
                     } else {
                         $special = $product['special'];
                         $price = $product['price'];
-                        $special_usd = $this->currency->convert($product['special'], 'UAH', 'USD');
-                        $price_usd = $this->currency->convert($product['price'], 'UAH', 'USD');
+                        if ($this->config->get('hotline_add_usd') == 1) {
+                            $special_usd = $this->currency->convert($product['special'], 'UAH', 'USD');
+                            $price_usd = $this->currency->convert($product['price'], 'UAH', 'USD');
+                        } else {
+                            $special_usd = false;
+                            $price_usd = false;
+                        }
                     }
 
                     if ($special && $special < $price) {
