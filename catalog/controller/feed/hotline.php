@@ -149,9 +149,9 @@ class ControllerFeedHotLine extends Controller {
                     }
 
                     if ($product['quantity']) {
-                        $output .= '<stock>' . $this->language->get('text_in_stock') . '</stock>';
+                        $output .= '<stock>В наличии</stock>';
                     } else {
-                        $output .= '<stock>' . $this->language->get('text_out_of_stock') . '</stock>';
+                        $output .= '<stock>Под заказ</stock>';
                     }
 
                     if ($this->config->get('config_hotline_guarantee')) {
