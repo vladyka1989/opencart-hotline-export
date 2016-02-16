@@ -41,7 +41,7 @@ class ControllerFeedHotLine extends Controller {
 
         $this->language->load('feed/hotline');
 
-        if ($this->config->get('hotline_status') && in_array($this->currency->getCode(), array('USD', 'UAH'))) {
+        if ($this->config->get('hotline_status') && in_array($this->currency->getCode(), array('UAH'))) {
 
             $output  = '<?xml version="1.0" encoding="UTF-8" ?>';
             $output .= '<price>';
@@ -78,6 +78,10 @@ class ControllerFeedHotLine extends Controller {
 
                 $output .= '<items>';
                 foreach ($products as $product) {
+                    if ( $this->config->get('hotline_add_outofstock') == 0 ) {
+                        if ($product['quantity'] < 1) continue;
+                    }
+
                     $output .= '<item>';
                     $output .= '<id>' . $product['product_id'] . '</id>';
 
@@ -115,7 +119,7 @@ class ControllerFeedHotLine extends Controller {
                     $output .= '<url>' . $this->url->link('product/product', 'product_id=' . (int) $product['product_id']) . '</url>';
 
                     if ($product['image']) {
-                        $output .= '<image>' . htmlspecialchars( $this->model_tool_image->resize($product['image'], 600, 600) ) . '</image>';
+                        $output .= '<image>' . htmlspecialchars( $this->model_tool_image->resize($product['image'], $this->config->get('config_image_popup_width'), $this->config->get('config_image_popup_height')) ) . '</image>';
                     }
 
                     // Prepare Price
@@ -127,8 +131,13 @@ class ControllerFeedHotLine extends Controller {
                     } else {
                         $special = $product['special'];
                         $price = $product['price'];
-                        $special_usd = $this->currency->convert($product['special'], 'UAH', 'USD');
-                        $price_usd = $this->currency->convert($product['price'], 'UAH', 'USD');
+                        if ($this->config->get('hotline_add_usd') == 1) {
+                            $special_usd = $this->currency->convert($product['special'], 'UAH', 'USD');
+                            $price_usd = $this->currency->convert($product['price'], 'UAH', 'USD');
+                        } else {
+                            $special_usd = false;
+                            $price_usd = false;
+                        }
                     }
 
                     if ($special && $special < $price) {
@@ -145,13 +154,22 @@ class ControllerFeedHotLine extends Controller {
                     }
 
                     if ($product['quantity']) {
-                        $output .= '<stock>' . $this->language->get('text_in_stock') . '</stock>';
+                        $output .= '<stock>В наличии</stock>';
                     } else {
-                        $output .= '<stock>' . $this->language->get('text_out_of_stock') . '</stock>';
+                        $output .= '<stock>Под заказ</stock>';
                     }
 
                     if ($this->config->get('config_hotline_guarantee')) {
                         $output .= '<guarantee>' . $this->config->get('config_hotline_guarantee') . '</guarantee>';
+                    }
+
+                    if ($this->config->get('hotline_add_attributes') == 1) {
+                        $attributes_group = $this->model_catalog_product->getProductAttributes($product['product_id']);
+                        foreach ($attributes_group as $attributes) {
+                            foreach ($attributes["attribute"] as $attribute) {
+                                $output .= '<param name="' . $attribute['name'] . '">' . $attribute['text'] . '</param>';
+                            }
+                        }
                     }
 
                     $output .= '</item>';

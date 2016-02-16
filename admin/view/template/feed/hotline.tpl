@@ -53,6 +53,14 @@
       <form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data" id="form">
         <table class="form">
           <tr>
+            <td><?php echo $entry_status; ?></td>
+            <td><select name="hotline_status">
+                <option value="0" <?php if ($hotline_status == 0) echo ' selected'; ?> ><?php echo $text_disabled; ?></option>
+                <option value="1" <?php if ($hotline_status == 1) echo ' selected'; ?> ><?php echo $text_enabled; ?></option>
+              </select>
+            </td>
+          </tr>
+          <tr>
             <td><?php echo $entry_hotline_firm_id; ?></td>
             <td><input type="text" name="config_hotline_firm_id" value="<?php echo $config_hotline_firm_id; ?>"></td>
           </tr>
@@ -61,20 +69,32 @@
             <td><input type="text" name="config_hotline_guarantee" value="<?php echo $config_hotline_guarantee; ?>"></td>
           </tr>
           <tr>
-            <td><?php echo $entry_status; ?></td>
-            <td><select name="hotline_status">
-                <?php if ($config_hotline_status) { ?>
-                <option value="1" selected="selected"><?php echo $text_enabled; ?></option>
-                <option value="0"><?php echo $text_disabled; ?></option>
-                <?php } else { ?>
-                <option value="1"><?php echo $text_enabled; ?></option>
-                <option value="0" selected="selected"><?php echo $text_disabled; ?></option>
-                <?php } ?>
-              </select></td>
-          </tr>
-          <tr>
             <td><?php echo $entry_data_feed; ?></td>
             <td><textarea cols="40" rows="5"><?php echo $data_feed; ?></textarea></td>
+          </tr>
+          <tr>
+            <td><?php echo $entry_add_attributes; ?></td>
+            <td><select name="hotline_add_attributes">
+                <option value="0" <?php if ($hotline_add_attributes == 0) echo ' selected'; ?> ><?php echo $text_disabled; ?></option>
+                <option value="1" <?php if ($hotline_add_attributes == 1) echo ' selected'; ?> ><?php echo $text_enabled; ?></option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td><?php echo $entry_add_outofstock; ?></td>
+            <td><select name="hotline_add_outofstock">
+                <option value="0" <?php if ($hotline_add_outofstock == 0) echo ' selected'; ?> ><?php echo $text_disabled; ?></option>
+                <option value="1" <?php if ($hotline_add_outofstock == 1) echo ' selected'; ?> ><?php echo $text_enabled; ?></option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td><?php echo $entry_add_usd; ?></td>
+            <td><select name="hotline_add_usd">
+                <option value="0" <?php if ($hotline_add_usd == 0) echo ' selected'; ?> ><?php echo $text_disabled; ?></option>
+                <option value="1" <?php if ($hotline_add_usd == 1) echo ' selected'; ?> ><?php echo $text_enabled; ?></option>
+              </select>
+            </td>
           </tr>
         </table>
       </form>
