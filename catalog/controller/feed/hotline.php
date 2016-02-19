@@ -39,8 +39,6 @@ class ControllerFeedHotLine extends Controller {
         $this->load->model('feed/hotline');
         $this->load->model('tool/image');
 
-        $this->language->load('feed/hotline');
-
         if ($this->config->get('hotline_status') && in_array($this->currency->getCode(), array('UAH'))) {
 
             $output  = '<?xml version="1.0" encoding="UTF-8" ?>';
