@@ -111,7 +111,8 @@ class ControllerFeedHotLine extends Controller {
                     $output .= '<name>' . $product['name'] . '</name>';
 
                     if ($product['description']) {
-                        $output .= '<description>' . trim(str_replace(array('&lt;p&gt;', '&lt;/p&gt;'), '', strip_tags($product['description']))) . '</description>';
+                        $stripped_tags = strip_tags(html_entity_decode($product['description']));
+                        $output .= '<description>' . str_replace('&','',html_entity_decode($stripped_tags)) . '</description>';
                     }
 
                     $output .= '<url>' . $this->url->link('product/product', 'product_id=' . (int) $product['product_id']) . '</url>';
